@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, OnChanges, Renderer2, SimpleChanges } from '@angular/core';
+import { Directive, ElementRef, Input, OnChanges, Renderer2 } from '@angular/core';
 
 @Directive({
   selector: '[appHighlight]',
@@ -12,10 +12,11 @@ export class HighlightDirective implements OnChanges {
   @Input() content: string = '';
   @Input() classToApply: string = '';
   @Input() setTitle: boolean = false;
+  @Input() highlightColor = 'yellow';
 
   constructor(private el: ElementRef, private renderer: Renderer2) { }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
     if (!this.content) {
       return;
     }
@@ -42,7 +43,7 @@ export class HighlightDirective implements OnChanges {
 
   getFormattedText() {
     const re = new RegExp(`(${this.searchedWord})`, 'gi');
-    return this.content.replace(re, `<span class="${this.classToApply}">$1</span>`);
+    return this.content.replace(re, `<span style="background-color: ${this.highlightColor}">\$1</span>`);
   }
 
 }
