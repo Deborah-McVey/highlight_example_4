@@ -6,10 +6,12 @@
         placeholder="Enter text to search" autofocus>
     </div>
     <ul class="list-group list-group-flush">
-      <li class="list-group-item" *ngFor="let c of characters | appFilter: searchText" appHighlight
+      @for (c of characters; track c) {
+      <li class="list-group-item" appHighlight
         [searchedWord]="searchText" [content]="c" [classToApply]="'font-weight-bold'" [setTitle]="true">
-        {{c}}
+        {{ c | appFilter: searchText }}
       </li>
+    }
     </ul>
   </div>
 </div>
